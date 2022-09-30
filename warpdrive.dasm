@@ -1,0 +1,48 @@
+
+	processor 6502
+	seg.u ZEROPAGE	; uninitialized zero-page variables
+	org $0
+        
+
+        
+VRAM_LOOKUP
+	.byte $00
+        .byte $80
+        .byte $28
+        .byte $a8
+        .byte $50
+        .byte $d0
+        
+	seg CODE
+	org $803	; starting address
+
+start
+	jmp loop
+        
+putchar
+	pha
+	tya
+        and #$06
+        cmp #$00
+        beq putchar_x00
+        cmp #$02
+        beq putchar_x28
+        cmp #$04
+        beq putchar_x50
+        rts
+        
+putchar_x00
+	tya
+        and #$01
+        cmp #$01
+        beq putchar_x00_2
+        
+putchar_x00_2
+	
+        
+putchar_x28
+
+putchar_x50
+	
+loop
+	jmp loop
